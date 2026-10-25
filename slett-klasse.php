@@ -1,20 +1,27 @@
 
 <?php
 /* slett-klasse */
-/* Programmet sletter en valgt klasse */
+/*
+  Programmet lager et skjema for å velge en klasse som skal slettes.
+  Programmet sletter den valgte klassen.
+*/
 ?>
 
 <script src="funksjoner.js"></script>
 
 <h3>Slett klasse</h3>
 
-<form method="post" action="" onsubmit="return bekreft()">
-    Klassekode
-    <input type="text" name="klassekode" maxlength="5" required>
-    <br>
+<form method="post" action="" id="slettKlasseSkjema"
+      name="slettKlasseSkjema" onsubmit="return bekreft()">
 
-    <input type="submit" name="slettKlasseKnapp"
-           value="Slett klasse">
+  Klassekode
+  <input type="text" id="klassekode" name="klassekode" required />
+  <br />
+
+  <input type="submit" value="Slett klasse"
+         name="slettKlasseKnapp" id="slettKlasseKnapp" />
+
+  <input type="reset" value="Nullstill" />
 </form>
 
 <?php
@@ -38,17 +45,31 @@ if (isset($_POST["slettKlasseKnapp"]))
     }
     else
     {
-        $sqlSetning = "DELETE FROM klasse
+        $sqlSetning = "SELECT * FROM student
                        WHERE klassekode='$klassekode';";
 
-        mysqli_query($db, $sqlSetning)
-            or die("Ikke mulig å slette klassen. "
-                   . "Kontroller om klassen har studenter.");
+        $sqlResultat = mysqli_query($db, $sqlSetning)
+            or die("Ikke mulig å hente studenter fra databasen");
 
-        print("Klassen $klassekode er nå slettet");
+        $antallStudenter = mysqli_num_rows($sqlResultat);
+
+        if ($antallStudenter != 0)
+        {
+            print("Klassen kan ikke slettes fordi det finnes studenter i klassen.");
+        }
+        else
+        {
+            $sqlSetning = "DELETE FROM klasse
+                           WHERE klassekode='$klassekode';";
+
+            mysqli_query($db, $sqlSetning)
+                or die("Ikke mulig å slette klassen fra databasen");
+
+            print("Følgende klasse er nå slettet: $klassekode");
+        }
     }
 }
 ?>
 
-<br>
+<br />
 <a href="index.php">Tilbake til hovedmenyen</a>
