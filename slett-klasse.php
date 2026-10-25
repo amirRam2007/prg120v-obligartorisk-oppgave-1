@@ -1,16 +1,19 @@
 
+<<<<<<< HEAD
 <?php
 /* slett-klasse */
+=======
+<?php  /* slett-klasse */
+>>>>>>> 638fdc247aca7798c5a85ff02b94e425c78eb183
 /*
   Programmet lager et skjema for å velge en klasse som skal slettes.
   Programmet sletter den valgte klassen.
 */
 ?>
 
-<script src="funksjoner.js"></script>
-
 <h3>Slett klasse</h3>
 
+<<<<<<< HEAD
 <form method="post" action="" id="slettKlasseSkjema"
       name="slettKlasseSkjema" onsubmit="return bekreft()">
 
@@ -21,6 +24,15 @@
   <input type="submit" value="Slett klasse"
          name="slettKlasseKnapp" id="slettKlasseKnapp" />
 
+=======
+<form method="post" action="" id="slettKlasseSkjema" name="slettKlasseSkjema">
+  Klassekode
+  <input type="text" id="klassekode" name="klassekode" required />
+  <br />
+
+  <input type="submit" value="Slett klasse"
+         name="slettKlasseKnapp" id="slettKlasseKnapp" />
+>>>>>>> 638fdc247aca7798c5a85ff02b94e425c78eb183
   <input type="reset" value="Nullstill" />
 </form>
 
